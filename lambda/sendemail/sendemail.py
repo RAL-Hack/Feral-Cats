@@ -1,7 +1,38 @@
+
 import requests
 import string
+import json
 
-def emailHandler(context, event) :
+
+
+def respond(err, res=None):
+    return {
+        'statusCode': '400' if err else '200',
+        'body': err.message if err else json.dumps(res),
+        'headers': {
+            'Content-Type': 'application/json',
+        },
+    }
+
+
+def lambda_handler(event, context):
+  
+    #print("Received event: " + json.dumps(event, indent=2))
+
+    operations = {
+        'POST': emailHandler
+    }
+
+    operation = event['httpMethod']
+    if operation in operations:
+        requestData = event['queryStringParameters'] if operation == 'GET' else json.loads(event['body'])
+        return respond(None, operations[operation](requestData))
+    else:
+        return respond(ValueError('Unsupported method "{}"'.format(operation)))
+
+requestData= {"emailtype":"winner","firstname":"Colleen","to":"cebkerr@gmail.com","date":"Monday, July 30th"}
+
+def emailHandler(requestData) :
 
     subjects = {
         'confirmation' : 'We\'ve received your appointment request for the feral cat program',
@@ -11,28 +42,31 @@ def emailHandler(context, event) :
 
     bodies = {
         'confirmation' : 'https://s3.amazonaws.com/feral-cat-lottery/signup-email.html',
-        'winner' : 'https://s3.amazonaws.com/feral-cat-lottery/winner-email.html',
-        'loser' : 'https://s3.amazonaws.com/feral-cat-lottery/loser-email.html'
+        'winner' : 'https://s3.amazonaws.com/feral-cat-lottery/confirmation-email.html',
+        'loser' : 'https://s3.amazonaws.com/feral-cat-lottery/decline-email.html'
     }
 
     url = "https://api.mailgun.net/v3/sandbox0963e44a639a4403a83ed83478e01637.mailgun.org/messages"
 
-    emailContent = transformEmail(requests.get(bodies[event['emailtype']]).text, event)
+    emailContent = transformEmail(requests.get(bodies[requestData['emailtype']]).text, requestData)
 
-    payload = "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"from\"\r\n\r\nColleen Kerr <cebkerr@gmail.com>\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"to\"\r\n\r\n"+event['to']+"\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"subject\"\r\n\r\n"+subjects[event['emailtype']]+"\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"html\"\r\n\r\n"+emailContent+"\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--"
+    payload = "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"from\"\r\n\r\nColleen Kerr <cebkerr@gmail.com>\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"to\"\r\n\r\n"+requestData['to']+"\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"subject\"\r\n\r\n"+subjects[requestData['emailtype']]+"\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"html\"\r\n\r\n"+emailContent+"\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--"
     headers = {
         'content-type': "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
         'authorization': "Basic YXBpOmtleS1mM2YzYjc0OTM1ZmQwNGFkNjc0ZGVlZjQwMjQzNjAzYg=="
         }
 
-    response = requests.request("POST", url, data=payload, headers=headers)
-
     print(emailContent)
 
-
-def transformEmail(body, event) :
-    body = string.replace(body, '==FIRSTNAME==', event['firstname'])
+   # response = requests.request("POST", url, data=payload, headers=headers)
 
 
+
+def transformEmail(body, requestData) :
+    body = string.replace(body, '==FIRSTNAME==', requestData['firstname'])
+    if requestData['emailtype'] == 'confirmation':
+      body = string.replace(body, '==APPOINTMENT DATE==', requestData['date'])
     return body
 
+
+emailHandler(requestData)
