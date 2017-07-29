@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import {Router} from "@angular/router";
+import {CatWeekService} from "../services/CatWeek.service";
 
 @Component({
   selector: 'app-selection-options',
@@ -15,20 +17,16 @@ export class SelectionOptionsComponent implements OnInit {
     friday: [0, Validators.required]
   })
 
-  constructor(public fb: FormBuilder) { }
+  constructor(public fb: FormBuilder, private router: Router, public catWeekService: CatWeekService) { }
 
   ngOnInit() {
-    console.log(this.randomNum(50, 5));
-  }
-
-  randomNum(fileSize, appointmentSlots) {
-    return Math.floor(Math.random() * (fileSize - 1 + 1)) + 1;
   }
 
   submitSelections(event) {
     console.log(this.selectionForm.value);
-    console.log((Object.keys(this.selectionForm.value).length))
-
+    console.log((Object.keys(this.selectionForm.value).length));
+    this.catWeekService.announceCatWeek(this.selectionForm.value);
+    this.router.navigate(['/selection']);
   }
 
   // var y = +x;

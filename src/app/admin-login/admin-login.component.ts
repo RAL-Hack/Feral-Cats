@@ -18,7 +18,7 @@ export class AdminLoginComponent implements OnInit {
   constructor(public fb: FormBuilder, private router: Router) { }
   submitAdmin(event) {
     if (this.adminLogin.value['username'] == 'username' && this.adminLogin.value['password'] == 'password') {
-      console.log(true)
+      console.log(true);
       this.router.navigate(['/select/options'])
     }
     console.log(this.adminLogin.value);

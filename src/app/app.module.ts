@@ -15,6 +15,7 @@ import { SelectionComponent } from './selection/selection.component';
 
 import { LotteryService } from './services/lottery.service';
 import { SelectionOptionsComponent } from './selection-options/selection-options.component';
+import {CatWeekService} from "./services/CatWeek.service";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SelectionOptionsComponent } from './selection-options/selection-options
     RouterModule.forRoot(APP_ROUTES)
   ],
   providers: [
-    LotteryService
+    LotteryService,
+    CatWeekService
   ],
   bootstrap: [AppComponent]
 })
