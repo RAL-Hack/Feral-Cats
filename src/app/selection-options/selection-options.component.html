@@ -1,0 +1,64 @@
+<h1>Lottery Selection</h1>
+<div class="form-container">
+    <form [formGroup]="selectionForm" (ngSubmit)="submitSelections($event)">
+        <div class="form-group">
+            <h3>Monday</h3>
+            <select formControlName="monday">
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <h3>Tuesday</h3>
+            <select formControlName="tuesday">
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <h3>Wednesday</h3>
+            <select formControlName="wednesday">
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <h3>Thursday</h3>
+            <select formControlName="thursday">
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <h3>Friday</h3>
+            <select formControlName="friday">
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+        </div>
+    </form>
+</div>

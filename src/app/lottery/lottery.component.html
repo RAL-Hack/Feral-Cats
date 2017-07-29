@@ -1,6 +1,6 @@
 <div class="form-container">
-  <h1 class="page-header">Lottery</h1>
   <form [formGroup]="lotteryForm" (ngSubmit)="submitLottery($event)">
+    <h1 class="page-header">Lottery</h1>
     <div class="form-group">
       <label for="firstName">First name</label>
       <input class="form-control" type="text" formControlName="firstName" required placeholder="John">
@@ -47,7 +47,6 @@
       </label>
       </label><br>
     </div>
-    <br><br>
     <div class="form-group">
       <button class="btn btn-primary" type="submit">Submit</button>
       <button type="reset" class="btn btn-default">Reset</button>

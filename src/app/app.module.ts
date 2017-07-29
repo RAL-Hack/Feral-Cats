@@ -11,6 +11,10 @@ import { HomeComponent } from './home/home.component';
 import { LotteryComponent } from './lottery/lottery.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { SelectionComponent } from './selection/selection.component';
+
+import { LotteryService } from './services/lottery.service';
+import { SelectionOptionsComponent } from './selection-options/selection-options.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,8 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
     LotteryComponent,
     AdminLoginComponent,
     ThankYouComponent,
+    SelectionComponent,
+    SelectionOptionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,9 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
     ReactiveFormsModule,
     RouterModule.forRoot(APP_ROUTES)
   ],
-  providers: [],
+  providers: [
+    LotteryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
