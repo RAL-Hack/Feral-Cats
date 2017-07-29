@@ -94,8 +94,6 @@ export class SelectionComponent implements OnInit {
   getEntriesFromS3() {
     return new Promise((resolve, reject) => {
       let s3 = new S3({
-        accessKeyId:'AKIAJSHBTMQLB3633NIA',
-        secretAccessKey: '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'
       });
       s3.getObject({
         Bucket: 'aws-website-feralcatlottery-kq696',
