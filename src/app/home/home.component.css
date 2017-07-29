@@ -1,0 +1,15 @@
+#lotteryTitle{
+  text-align: center;
+}
+
+.infoBlurb{
+  text-align: center;
+  margin: 10px 10%;
+}
+
+#enterLotteryButton {
+  height: 100px;
+  display: block;
+  margin: 40px auto;
+  cursor: pointer;
+}

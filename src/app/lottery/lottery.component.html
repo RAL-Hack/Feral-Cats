@@ -1,0 +1,56 @@
+<div class="form-container">
+  <h1 class="page-header">Lottery</h1>
+  <form [formGroup]="lotteryForm" (ngSubmit)="submitLottery($event)">
+    <div class="form-group">
+      <label for="firstName">First name</label>
+      <input class="form-control" type="text" formControlName="firstName" required placeholder="John">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last name</label>
+      <input class="form-control" type="text" formControlName="lastName" required placeholder="Smith">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input class="form-control" type="text" formControlName="email" required placeholder="john.smith@email.com">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input class="form-control" type="text" formControlName="phone" required placeholder="(000) 000-0000">
+    </div>
+
+    <div class="form-group">
+      <label for="preferredContact">Preferred Method of Contact</label><br>
+      <input type="radio" formControlName="preferredContact" required value="phone"> Phone
+      <input type="radio" formControlName="preferredContact" required value="email"> Email
+    </div>
+
+    <div class="form-group">
+      <label>Availability
+        <br>
+      <label class="checkbox-inline">
+        <input  type="checkbox" value="monday" formControlName="monday" >Monday
+       </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="tuesday" formControlName="tuesday" > Tuesday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="wednesday" formControlName="wednesday" > Wednesday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="thursday" formControlName="thursday" > Thursday
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="friday" formControlName="friday" > Friday
+      </label>
+      </label><br>
+    </div>
+    <br><br>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Submit</button>
+      <button type="reset" class="btn btn-default">Reset</button>
+    </div>
+  </form>
+</div>
