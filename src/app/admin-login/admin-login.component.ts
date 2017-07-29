@@ -19,7 +19,7 @@ export class AdminLoginComponent implements OnInit {
   submitAdmin(event) {
     if (this.adminLogin.value['username'] == 'username' && this.adminLogin.value['password'] == 'password') {
       console.log(true)
-      this.router.navigate(['/selection-options'])
+      this.router.navigate(['/select/options'])
     }
     console.log(this.adminLogin.value);
   }
